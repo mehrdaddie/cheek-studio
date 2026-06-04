@@ -1,26 +1,92 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* FONTS */
+@font-face {
+  font-family: "Casko";
+  src: url("/fonts/Casko-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Regular.otf") format("opentype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Light.otf") format("opentype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Graphik";
+  src: url("/fonts/Graphik-Semibold.otf") format("opentype");
+  font-weight: 600;
+}
+
+/* ROOT */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f4ef;
+  --foreground: #111111;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  font-family: "Graphik", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Casko", serif;
+}
+
+.font-casko { font-family: "Casko", serif; }
+.font-graphik { font-family: "Graphik", sans-serif; }
+.font-graphik-light { font-family: "Graphik", sans-serif; font-weight: 300; }
+.font-graphik-semibold { font-family: "Graphik", sans-serif; font-weight: 600; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f7f4ef; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.35); }
+
+/* SELECTION */
+::selection { background: rgba(0,0,0,0.12); }
+
+/* GLASS EFFECT */
+.glass {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* CINEMATIC BUTTON */
+.btn-cinematic { transition: all 0.35s ease; }
+.btn-cinematic:hover { transform: translateY(-2px); }
+
+/* FADE ANIMATION */
+.fade-up { animation: fadeUp 0.8s ease forwards; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2.2s infinite;
 }
