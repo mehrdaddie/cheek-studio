@@ -1,3 +1,4 @@
+// src/app/page.tsx
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Gallery from "@/components/Gallery";
@@ -10,37 +11,37 @@ export default function Home() {
   return (
     <main className="bg-[#F7F4EF] text-black overflow-x-hidden">
 
-      {/* Floating nav (not blocking hero) */}
       <Navbar />
 
       {/* HERO */}
-      <Hero />
+      <div id="hero">
+        <Hero />
+      </div>
 
-      <About />
+      {/* ABOUT */}
+      <div id="about">
+        <About />
+      </div>
 
       {/* GALLERY */}
-      <Gallery />
+      <div id="gallery">
+        <Gallery />
+      </div>
 
       {/* VIDEO */}
-      <VideoShowcase />
+      <div id="videos">
+        <VideoShowcase />
+      </div>
 
       {/* WHY US */}
-      <WhyUs />
+      <div id="whyus">
+        <WhyUs />
+      </div>
 
-      {/* BOOKING CTA */}
-      <section className="py-40 text-center px-6 bg-black text-white">
-        <h2 className="text-4xl md:text-6xl font-light">
-          Let’s create something timeless
-        </h2>
-
-        <p className="mt-6 text-white/60">
-          Limited bookings per month to maintain quality.
-        </p>
-
-         {/* Packages Showcase */}
-      <PackagesShowcase />
-        
-      </section>
+      {/* PACKAGES */}
+      <div id="packages">
+        <PackagesShowcase />
+      </div>
 
     </main>
   );

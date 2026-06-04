@@ -2,29 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* FONTS */
+/* =========================
+   FONTS
+========================= */
+
+/* Casko برای عناوین انگلیسی */
 @font-face {
   font-family: "Casko";
   src: url("/fonts/Casko-Regular.otf") format("opentype");
 }
 
+/* IRANCELL فارسی */
 @font-face {
-  font-family: "Graphik";
-  src: url("/fonts/Graphik-Regular.otf") format("opentype");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Graphik";
-  src: url("/fonts/Graphik-Light.otf") format("opentype");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "Graphik";
-  src: url("/fonts/Graphik-Semibold.otf") format("opentype");
-  font-weight: 600;
+  font-family: "Irancell";
+  src: url("/fonts/Irancell-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
 }
 
-/* ROOT */
+@font-face {
+  font-family: "Irancell";
+  src: url("/fonts/Irancell-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Irancell";
+  src: url("/fonts/Irancell-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* =========================
+   ROOT
+========================= */
 :root {
   --background: #f7f4ef;
   --foreground: #111111;
@@ -32,34 +44,52 @@
 
 html {
   scroll-behavior: smooth;
+  direction: rtl; /* همه متن‌های فارسی راست‌چین */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-  font-family: "Graphik", sans-serif;
+  font-family: "Irancell", sans-serif;
+  direction: rtl;
 }
 
+/* =========================
+   HEADINGS
+========================= */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Casko", serif;
 }
 
+/* =========================
+   FONT HELPERS
+========================= */
 .font-casko { font-family: "Casko", serif; }
-.font-graphik { font-family: "Graphik", sans-serif; }
-.font-graphik-light { font-family: "Graphik", sans-serif; font-weight: 300; }
-.font-graphik-semibold { font-family: "Graphik", sans-serif; font-weight: 600; }
+.font-irancell { font-family: "Irancell", sans-serif; }
+.font-irancell-thin { font-family: "Irancell", sans-serif; font-weight: 100; }
+.font-irancell-regular { font-family: "Irancell", sans-serif; font-weight: 400; }
+.font-irancell-bold { font-family: "Irancell", sans-serif; font-weight: 700; }
 
-/* SCROLLBAR */
+/* =========================
+   SCROLLBAR
+========================= */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #f7f4ef; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 999px; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 999px;
+}
 ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.35); }
 
-/* SELECTION */
+/* =========================
+   SELECTION
+========================= */
 ::selection { background: rgba(0,0,0,0.12); }
 
-/* GLASS EFFECT */
+/* =========================
+   GLASS EFFECT
+========================= */
 .glass {
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
@@ -67,26 +97,90 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* CINEMATIC BUTTON */
+/* =========================
+   CINEMATIC BUTTON
+========================= */
 .btn-cinematic { transition: all 0.35s ease; }
 .btn-cinematic:hover { transform: translateY(-2px); }
 
-/* FADE ANIMATION */
+/* =========================
+   FADE ANIMATION
+========================= */
 .fade-up { animation: fadeUp 0.8s ease forwards; }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* =========================
+   SHIMMER / GLOW
+========================= */
 @keyframes shimmer {
-  0% {
-    transform: translateX(-120%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+.animate-shimmer { animation: shimmer 2.2s infinite; }
+
+/* =========================
+   RTL FOR COMPONENTS
+========================= */
+section, article, div, p, ul, li, h1, h2, h3, h4, h5, h6 {
+  direction: rtl;
 }
 
-.animate-shimmer {
-  animation: shimmer 2.2s infinite;
+/* =========================
+   PACKAGES SPECIFIC
+========================= */
+.packages-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+}
+
+.package-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.package-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.package-title {
+  font-family: "Irancell", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.package-description {
+  font-family: "Irancell", sans-serif;
+  font-weight: 100;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555555;
+  padding: 0 0.5rem;
+}
+
+.package-price {
+  background-color: #333333; /* زغالی */
+  color: #ffffff;
+  font-family: "Casko", serif;
+  font-weight: 700;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  font-size: 1.25rem;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .package-card { margin-bottom: 1.5rem; }
 }

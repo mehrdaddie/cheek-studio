@@ -93,7 +93,7 @@ export default function Hero() {
           style={{ y: descY }}
           className="mt-8 max-w-2xl text-white/80 text-sm md:text-lg leading-relaxed"
         >
-          We craft cinematic wedding films and timeless photography that preserve emotion, elegance, and storytelling.
+          We craft cinematic wedding films and timeless photography that preserve emotion, elegance, and storytelling
         </motion.p>
 
         {/* CTA BUTTONS */}
