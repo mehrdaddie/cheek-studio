@@ -1,4 +1,3 @@
-// src/app/page.tsx
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Gallery from "@/components/Gallery";
@@ -6,10 +5,13 @@ import VideoShowcase from "@/components/VideoShowcase";
 import WhyUs from "@/components/WhyUs";
 import Navbar from "@/components/Navbar";
 import PackagesShowcase from "@/components/PackagesShowcase";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
   return (
     <main className="bg-[#F7F4EF] text-black overflow-x-hidden">
+
+      <SmoothScroll />
 
       <Navbar />
 

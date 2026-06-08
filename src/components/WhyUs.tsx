@@ -1,18 +1,115 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function WhyUs() {
   return (
-    <section className="py-32 px-6 flex justify-center">
-      <div className="max-w-3xl w-full bg-white rounded-3xl shadow-lg p-12 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="py-40 px-6"
+    >
+      <div className="max-w-6xl mx-auto">
 
-        <h2 className="text-5xl text-center mb-6 font-casko ">
-          ?Why Us
-        </h2>
+        {/* TITLE */}
 
-        <p className="text-center text-gray-700 leading-relaxed text-lg font-thin">
-          ما روی داستان‌گویی سینمایی و ثبت احساس واقعی تمرکز می‌کنیم.  
-          هر لحظه را با دقت و ظرافت ثبت می‌کنیم تا خاطرات شما همیشه زنده بمانند.
-        </p>
+        <div className="text-center mb-20">
+          <p className="font-casko text-xs tracking-[0.5em] uppercase text-gray-500">
+            Why Choose Us
+          </p>
+
+          <h2 className="font-casko text-5xl md:text-6xl mt-6">
+            More Than A Wedding Film
+          </h2>
+        </div>
+
+        {/* CARDS */}
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          <div
+            className="
+              bg-white/70
+              backdrop-blur-xl
+              border
+              border-black/5
+              rounded-[32px]
+              p-10
+              shadow-[0_20px_60px_rgba(0,0,0,0.05)]
+              transition-all
+              duration-500
+              hover:-translate-y-2
+            "
+          >
+            <h3 className="font-casko text-2xl mb-6">
+              Storytelling
+            </h3>
+
+            <p className="leading-loose text-gray-700">
+              ما فقط لحظه‌ها را ثبت نمی‌کنیم.
+              هر پروژه را به یک داستان سینمایی تبدیل می‌کنیم.
+            </p>
+          </div>
+
+          <div
+            className="
+              bg-white/70
+              backdrop-blur-xl
+              border
+              border-black/5
+              rounded-[32px]
+              p-10
+              shadow-[0_20px_60px_rgba(0,0,0,0.05)]
+              transition-all
+              duration-500
+              hover:-translate-y-2
+            "
+          >
+            <h3 className="font-casko text-2xl mb-6">
+              Emotion
+            </h3>
+
+            <p className="leading-loose text-gray-700">
+              احساسات واقعی مهم‌ترین بخش خاطرات هستند.
+              ما آن‌ها را بدون تصنع ثبت می‌کنیم.
+            </p>
+          </div>
+
+          <div
+            className="
+              bg-white/70
+              backdrop-blur-xl
+              border
+              border-black/5
+              rounded-[32px]
+              p-10
+              shadow-[0_20px_60px_rgba(0,0,0,0.05)]
+              transition-all
+              duration-500
+              hover:-translate-y-2
+            "
+          >
+            <h3 className="font-casko text-2xl mb-6">
+              Timeless
+            </h3>
+
+            <p className="leading-loose text-gray-700">
+              فیلم‌ها و تصاویر ما برای سال‌ها بعد نیز
+              ارزش و زیبایی خود را حفظ می‌کنند.
+            </p>
+          </div>
+
+        </div>
 
       </div>
-    </section>
+    </motion.section>
   );
 }

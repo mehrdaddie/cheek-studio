@@ -2,123 +2,233 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
+  const [onHero, setOnHero] = useState(true);
 
   const menuItems = [
     { name: "خانه", href: "#hero" },
     { name: "درباره ما", href: "#about" },
     { name: "نمونه کارها", href: "#gallery" },
     { name: "فیلم‌ها", href: "#videos" },
-    { name: "لوکیشن‌ها", href: "/locations", glow: true },
-    { name: "پکیج‌ها", href: "/packages", glow: true },
+    { name: "چرا ما", href: "#whyus" },
+    { name: "لوکیشن‌ها", href: "/locations" },
+    { name: "پکیج‌ها", href: "/packages" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "about", "gallery", "videos", "whyus"];
+      const sections = [
+        "hero",
+        "about",
+        "gallery",
+        "videos",
+        "whyus",
+      ];
+
       let current = "hero";
 
-      for (let id of sections) {
+      for (const id of sections) {
         const el = document.getElementById(id);
+
         if (!el) continue;
 
         const rect = el.getBoundingClientRect();
+
         if (rect.top <= window.innerHeight * 0.3) {
           current = id;
         }
       }
 
       setActiveSection(current);
+
+      const hero = document.getElementById("hero");
+
+      if (hero) {
+        const heroBottom = hero.offsetHeight - 120;
+        setOnHero(window.scrollY < heroBottom);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
-  const renderLink = (item: any) => {
-    const baseClass =
-      "relative px-3 py-2 transition-all duration-300 font-irancell font-bold";
-
-    const glowClass =
-      item.glow
-        ? "hover:scale-105 hover:text-black"
-        : "hover:text-black";
-
-    const glowEffect =
-      item.glow
-        ? "before:content-[''] before:absolute before:inset-0 before:bg-yellow-300 before:blur-xl before:opacity-0 hover:before:opacity-40 before:transition"
-        : "";
-
-    const active =
-      activeSection === item.href.replace("#", "") && item.href.startsWith("#")
-        ? "text-black"
-        : "text-gray-700";
-
-    if (item.href.startsWith("#")) {
-      return (
-        <a href={item.href} className={`${baseClass} ${glowClass} ${glowEffect} ${active}`}>
-          {item.name}
-        </a>
-      );
-    }
-
-    return (
-      <Link href={item.href} className={`${baseClass} ${glowClass} ${glowEffect}`}>
-        {item.name}
-      </Link>
-    );
-  };
-
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-md border-b border-gray-200">
-      <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <>
+      {/* TOP NAVBAR */}
 
-        {/* LOGO → scroll to top */}
-        <a
-          href="#hero"
-          className="font-casko text-3xl text-black cursor-pointer"
-        >
-          Cheek Studio
-        </a>
+      <nav
+        className={`
+          fixed
+          top-0
+          left-0
+          w-full
+          z-50
+          transition-all
+          duration-500
+          ${
+            onHero
+            ? "backdrop-blur-xl bg-black/10 border-b border-white/10"
+           : "backdrop-blur-xl bg-[#F7F4EF]/80 border-b border-black/10"
+          }
+        `}
+      >
+        <div className="flex items-center justify-between px-6 md:px-10 py-6">
 
-        {/* DESKTOP */}
-        <ul className="hidden md:flex gap-6 items-center">
-          {menuItems.map((item) => (
-            <li key={item.name}>
-              {renderLink(item)}
-            </li>
-          ))}
-        </ul>
+          <a
+            href="#hero"
+            className={`
+              font-casko
+              text-3xl
+              md:text-4xl
+              transition-colors
+              duration-500
+              ${onHero ? "text-white" : "text-black"}
+            `}
+          >
+            Cheek Studio
+          </a>
 
-        {/* MOBILE */}
-        <button
-          className="md:hidden text-black text-3xl"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
-          ☰
-        </button>
-      </div>
+          <button
+            onClick={() => setOpen(true)}
+            className={`
+              transition-colors
+              duration-500
+              ${onHero ? "text-white" : "text-black"}
+            `}
+          >
+            <Menu size={34} />
+          </button>
 
-      {/* MOBILE MENU */}
-      {mobileOpen && (
-        <div className="md:hidden bg-white/95 flex flex-col gap-4 p-6 font-irancell font-bold">
-          {menuItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-xl text-gray-700 hover:text-black transition"
-            >
-              {item.name}
-            </a>
-          ))}
         </div>
-      )}
-    </nav>
+      </nav>
+
+      {/* FULLSCREEN MENU */}
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="
+              fixed
+              inset-0
+              z-[200]
+              backdrop-blur-2xl
+              bg-[#F7F4EF]/40
+            "
+          >
+            {/* CLOSE BUTTON */}
+
+            <div className="absolute top-8 left-8">
+              <button
+                onClick={() => setOpen(false)}
+                className="text-black"
+              >
+                <X size={34} />
+              </button>
+            </div>
+
+            {/* MENU ITEMS */}
+
+            <div className="h-full flex flex-col items-center justify-center">
+
+              <div className="flex flex-col items-center gap-5">
+
+                {menuItems.map((item, index) => {
+                  const isActive =
+                    item.href.startsWith("#") &&
+                    activeSection === item.href.replace("#", "");
+
+                  if (item.href.startsWith("#")) {
+                    return (
+                      <motion.a
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          delay: index * 0.08,
+                        }}
+                        className={`
+                          font-irancell-bold
+                          text-5xl
+                          md:text-7xl
+                          transition-all
+                          duration-300
+                          hover:opacity-50
+                          ${
+                            isActive
+                              ? "opacity-100 text-black"
+                              : "opacity-70 text-black"
+                          }
+                        `}
+                      >
+                        {item.name}
+                      </motion.a>
+                    );
+                  }
+
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: index * 0.08,
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className="
+                          font-irancell-bold
+                          text-5xl
+                          md:text-7xl
+                          opacity-70
+                          text-black
+                          hover:opacity-100
+                          transition-all
+                          duration-300
+                        "
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              <div
+                className="
+                  absolute
+                  bottom-10
+                  font-casko
+                  tracking-[0.4em]
+                  text-sm
+                  text-black
+                "
+              >
+                CHEEK STUDIO
+              </div>
+
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

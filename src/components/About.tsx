@@ -1,80 +1,77 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function About() {
-  const controls = useAnimation();
-  const ref = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) return;
-
-      const rect = ref.current.getBoundingClientRect();
-
-      const isVisible =
-        rect.top < window.innerHeight * 0.8 &&
-        rect.bottom > window.innerHeight * 0.2;
-
-      if (isVisible) {
-        controls.start({
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.8 },
-        });
-      } else {
-        controls.start({
-          opacity: 0,
-          y: 40,
-          transition: { duration: 0.6 },
-        });
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // run once on load
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [controls]);
-
   return (
     <motion.section
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={controls}
-      className="py-32 px-6 flex flex-col items-center"
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 1,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="py-40 px-6 flex flex-col items-center"
     >
-      {/* ===== CINEMATIC INTRO ===== */}
-      <div className="max-w-3xl text-center mb-12">
-        <p className="casko text-sm md:text-lg text-gray-600 uppercase tracking-widest">
+      {/* CINEMATIC INTRO */}
+
+      <div className="max-w-4xl text-center mb-20">
+        <p className="font-casko text-xs md:text-sm tracking-[0.5em] text-gray-500 uppercase">
           Wedding Film Studio
         </p>
 
-        <h2 className="casko text-3xl md:text-4xl lg:text-5xl mt-4 leading-snug">
-          We don’t just capture weddings — we craft cinematic memories.
+        <h2 className="font-casko text-4xl md:text-5xl lg:text-6xl mt-8 leading-[1.3]">
+          We don’t just capture weddings —
+          <br />
+          we craft cinematic memories.
         </h2>
 
-        <p className="casko text-gray-600 mt-4 text-base md:text-lg leading-relaxed">
-          A refined storytelling approach combining emotion, light, and timeless composition.
+        <p className="mt-8 text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+          A refined storytelling approach combining emotion,
+          light and timeless composition.
         </p>
       </div>
 
-      {/* ===== ABOUT CARD ===== */}
-      <div className="relative max-w-3xl w-full bg-white rounded-3xl shadow-lg p-12 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+      {/* ABOUT CARD */}
 
-        <h2 className="text-4xl text-center mb-6 font-bold">
+      <div
+        className="
+          relative
+          max-w-4xl
+          w-full
+          rounded-[40px]
+          border
+          border-black/5
+          bg-white/70
+          backdrop-blur-xl
+          shadow-[0_30px_80px_rgba(0,0,0,0.06)]
+          p-10
+          md:p-16
+          transition-all
+          duration-700
+          hover:-translate-y-2
+          hover:shadow-[0_40px_100px_rgba(0,0,0,0.08)]
+        "
+      >
+        <h3 className="text-3xl md:text-4xl text-center mb-8 font-bold">
           About Us
-        </h2>
+        </h3>
 
-        <p className="text-center text-gray-700 leading-relaxed text-lg font-Regular">
+        <p className="text-center text-gray-700 leading-loose text-lg md:text-xl font-Regular">
           ما فقط عروسی‌ها را ثبت نمی‌کنیم،
-          بلکه خاطرات سینمایی خلق می‌کنیم.  
-          رویکردی دقیق در داستان‌گویی، ترکیب احساس، نور و ترکیب‌بندی بی‌زمان
+          بلکه خاطراتی سینمایی خلق می‌کنیم.
+          <br />
+          رویکرد ما ترکیبی از احساس،
+          نور، جزئیات و داستان‌گویی ماندگار است.
+          <br />
+          هر فریم با دقت طراحی می‌شود تا
+          زیبایی واقعی لحظه‌ها را برای همیشه حفظ کند.
         </p>
-
       </div>
-
     </motion.section>
   );
 }

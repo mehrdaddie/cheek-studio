@@ -6,37 +6,33 @@
    FONTS
 ========================= */
 
-/* Casko برای عناوین انگلیسی */
 @font-face {
   font-family: "Casko";
   src: url("/fonts/Casko-Regular.otf") format("opentype");
 }
 
-/* IRANCELL فارسی */
 @font-face {
   font-family: "Irancell";
   src: url("/fonts/Irancell-Thin.woff") format("woff");
   font-weight: 100;
-  font-style: normal;
 }
 
 @font-face {
   font-family: "Irancell";
   src: url("/fonts/Irancell-Regular.woff") format("woff");
   font-weight: 400;
-  font-style: normal;
 }
 
 @font-face {
   font-family: "Irancell";
   src: url("/fonts/Irancell-Bold.woff") format("woff");
   font-weight: 700;
-  font-style: normal;
 }
 
 /* =========================
    ROOT
 ========================= */
+
 :root {
   --background: #f7f4ef;
   --foreground: #111111;
@@ -44,114 +40,167 @@
 
 html {
   scroll-behavior: smooth;
-  direction: rtl; /* همه متن‌های فارسی راست‌چین */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-  font-family: "Irancell", sans-serif;
   direction: rtl;
+  font-family: "Irancell", sans-serif;
 }
 
 /* =========================
    HEADINGS
 ========================= */
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Casko", serif;
 }
 
 /* =========================
-   FONT HELPERS
+   HELPERS
 ========================= */
-.font-casko { font-family: "Casko", serif; }
-.font-irancell { font-family: "Irancell", sans-serif; }
-.font-irancell-thin { font-family: "Irancell", sans-serif; font-weight: 100; }
-.font-irancell-regular { font-family: "Irancell", sans-serif; font-weight: 400; }
-.font-irancell-bold { font-family: "Irancell", sans-serif; font-weight: 700; }
+
+.font-casko {
+  font-family: "Casko", serif;
+}
+
+.font-irancell {
+  font-family: "Irancell", sans-serif;
+}
+
+.font-irancell-thin {
+  font-family: "Irancell", sans-serif;
+  font-weight: 100;
+}
+
+.font-irancell-regular {
+  font-family: "Irancell", sans-serif;
+  font-weight: 400;
+}
+
+.font-irancell-bold {
+  font-family: "Irancell", sans-serif;
+  font-weight: 700;
+}
 
 /* =========================
    SCROLLBAR
 ========================= */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #f7f4ef; }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f4ef;
+}
+
 ::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 999px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.35); }
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
 
 /* =========================
    SELECTION
 ========================= */
-::selection { background: rgba(0,0,0,0.12); }
+
+::selection {
+  background: rgba(0, 0, 0, 0.12);
+}
 
 /* =========================
-   GLASS EFFECT
+   GLASS
 ========================= */
+
 .glass {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* =========================
-   CINEMATIC BUTTON
+   BUTTONS
 ========================= */
-.btn-cinematic { transition: all 0.35s ease; }
-.btn-cinematic:hover { transform: translateY(-2px); }
+
+.btn-cinematic {
+  transition: all 0.35s ease;
+}
+
+.btn-cinematic:hover {
+  transform: translateY(-2px);
+}
 
 /* =========================
-   FADE ANIMATION
+   ANIMATIONS
 ========================= */
-.fade-up { animation: fadeUp 0.8s ease forwards; }
+
+.fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* =========================
-   SHIMMER / GLOW
-========================= */
 @keyframes shimmer {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(120%); }
-}
-.animate-shimmer { animation: shimmer 2.2s infinite; }
+  0% {
+    transform: translateX(-120%);
+  }
 
-/* =========================
-   RTL FOR COMPONENTS
-========================= */
-section, article, div, p, ul, li, h1, h2, h3, h4, h5, h6 {
-  direction: rtl;
+  100% {
+    transform: translateX(120%);
+  }
 }
 
+.animate-shimmer {
+  animation: shimmer 2.2s infinite;
+}
+
 /* =========================
-   PACKAGES SPECIFIC
+   PACKAGES
 ========================= */
+
 .packages-container {
-  background-color: #ffffff;
+  background: white;
   padding: 2rem;
   border-radius: 1.5rem;
 }
 
 .package-card {
-  background-color: #ffffff;
+  background: white;
   border-radius: 1rem;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .package-card:hover {
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .package-title {
-  font-family: "Irancell", sans-serif;
+  font-family: "Irancell";
   font-weight: 700;
   text-align: center;
   font-size: 1.25rem;
@@ -159,28 +208,26 @@ section, article, div, p, ul, li, h1, h2, h3, h4, h5, h6 {
 }
 
 .package-description {
-  font-family: "Irancell", sans-serif;
+  font-family: "Irancell";
   font-weight: 100;
   text-align: center;
   font-size: 0.95rem;
-  color: #555555;
+  color: #555;
   padding: 0 0.5rem;
 }
 
 .package-price {
-  background-color: #333333; /* زغالی */
-  color: #ffffff;
-  font-family: "Casko", serif;
-  font-weight: 700;
+  background: #333;
+  color: white;
+  font-family: "Casko";
   text-align: center;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   font-size: 1.25rem;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 @media (max-width: 768px) {
-  .package-card { margin-bottom: 1.5rem; }
+  .package-card {
+    margin-bottom: 1.5rem;
+  }
 }
