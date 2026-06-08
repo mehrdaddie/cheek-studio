@@ -1,148 +1,201 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 const packages = [
   {
     name: "VIP",
-    price: "70",
-    desc: "پوشش کامل سینمایی مراسم عروسی با بالاترین کیفیت",
-    highlight: true,
+    featured: true,
+    desc: "پوشش کامل سینمایی مراسم عروسی با بالاترین سطح تولید و خدمات اختصاصی",
     features: [
-      "فیلمبرداری 4K",
+      "فیلمبرداری سینمایی 4K",
       "هلی‌شات و FPV",
-      "تدوین کامل حرفه‌ای",
-      "چند دوربینه",
+      "تدوین اختصاصی",
+      "تیم چند دوربینه",
       "آلبوم لوکس",
     ],
-    fontTitle: "font-casko",
-    gradient: "from-yellow-400 via-yellow-500 to-yellow-600",
   },
   {
     name: "CIP",
-    price: "60",
-    desc: "پکیج حرفه‌ای با امکانات متعادل و کامل",
-    highlight: false,
-    features: [
-      "فیلمبرداری 4K",
-      "هلی‌شات",
-      "تدوین حرفه‌ای",
-      "یک دوربین اضافه",
-    ],
-    fontTitle: "font-casko",
-    gradient: "from-gray-400 via-gray-500 to-gray-600",
+    featured: true,
+    desc: "پکیج حرفه‌ای با پوشش کامل و مناسب برای اکثر مراسم‌ها",
+    features: ["فیلمبرداری 4K", "هلی‌شات", "تدوین حرفه‌ای", "دوربین دوم"],
   },
   {
     name: "فرمالیته شمال",
-    price: "30",
-    desc: "تجربه سینمایی در طبیعت شمال",
-    highlight: false,
-    features: [
-      "هلی‌شات",
-      "تصویربرداری فضای باز",
-      "رنگ‌پردازی سینمایی",
-    ],
-    fontTitle: "font-irancell-bold",
-    gradient: "from-white to-white",
+    featured: false,
+    desc: "تجربه‌ای سینمایی در طبیعت شمال",
+    features: ["لوکیشن اختصاصی", "هلی‌شات", "رنگ‌پردازی سینمایی"],
   },
   {
     name: "فرمالیته شهری",
-    price: "15",
-    desc: "تصویربرداری سبک شهری و مینیمال",
-    highlight: false,
-    features: [
-      "لوکیشن شهری",
-      "عکاسی پرتره",
-      "ادیت سبک",
-    ],
-    fontTitle: "font-irancell-bold",
-    gradient: "from-white to-white",
+    featured: false,
+    desc: "ثبت تصاویر مینیمال در فضای شهری",
+    features: ["لوکیشن شهری", "عکاسی پرتره", "ادیت اختصاصی"],
   },
 ];
 
 export default function PackagesShowcase() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [open, setOpen] = useState(false);
 
   return (
-    <section className="py-32 px-6 bg-white font-irancell" dir="rtl">
-      <div className="max-w-7xl mx-auto">
-        {/* TITLE */}
-        <h2 className="text-5xl text-black text-center mb-16 font-casko">
-          Packages
-        </h2>
+    <>
+      {/* SECTION */}
+      <section className="py-32 px-6 bg-[#F7F4EF]" dir="rtl">
+        <div className="max-w-7xl mx-auto">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {packages.map((pkg, i) => (
-            <motion.div
-              key={pkg.name}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
-              style={{ perspective: 1200 }}
-              className="relative"
-            >
+          {/* HEADER */}
+          <div className="text-center mb-16">
+            <h2 className="font-casko text-5xl mb-4">Packages</h2>
+            <p className="font-irancell text-gray-600 max-w-2xl mx-auto leading-loose">
+              قیمت‌ها به صورت اختصاصی و بر اساس نیاز پروژه شما تعیین می‌شود
+            </p>
+          </div>
+
+          {/* GRID (ALL CARDS SAME STRUCTURE) */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            {packages.map((pkg, i) => (
               <motion.div
-                whileHover={{
-                  rotateY: 8,
-                  rotateX: -5,
-                  scale: 1.08,
-                  boxShadow: pkg.highlight
-                    ? "0 20px 50px rgba(255,215,0,0.6)"
-                    : "0 20px 50px rgba(0,0,0,0.2)",
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                key={pkg.name}
+                whileHover={{ y: -10, scale: 1.03 }}
                 className={`
-                  relative overflow-hidden border border-black/10
-                  flex flex-col h-[420px] rounded-xl
-                  ${pkg.highlight
-                    ? `bg-gradient-to-b ${pkg.gradient} text-black shadow-[0_0_40px_rgba(255,215,0,0.35)]`
-                    : "bg-white text-black shadow-lg"
+                  relative rounded-3xl p-8 flex flex-col justify-between
+                  backdrop-blur-xl border shadow-lg
+                  ${pkg.featured
+                    ? "bg-white/80 border-black/10 shadow-[0_30px_80px_rgba(0,0,0,0.12)]"
+                    : "bg-white/60 border-black/5"
                   }
                 `}
               >
-                <div className="p-6 flex flex-col h-full justify-between">
 
-                  {/* NAME */}
-                  <h3 className={`${pkg.fontTitle} text-2xl`}>
-                    {pkg.name}
-                  </h3>
+                {/* TITLE */}
+                <h3
+                  className={`text-3xl mb-3 ${
+                    pkg.featured ? "font-casko" : "font-casko"
+                  }`}
+                >
+                  {pkg.name}
+                </h3>
 
-                  {/* DESC */}
-                  <p className="text-sm mt-2 mb-6 font-irancell-thin text-gray-700 leading-6">
-                    {pkg.desc}
-                  </p>
+                {/* DESC */}
+                <p className="font-irancell text-gray-600 text-sm leading-loose mb-6">
+                  {pkg.desc}
+                </p>
 
-                  {/* FEATURES */}
-                  <ul className="space-y-2 flex-1">
-                    {pkg.features.map((f) => (
-                      <li
-                        key={f}
-                        className="text-sm flex items-center gap-2 font-irancell-thin text-gray-700"
-                      >
-                        <span className="text-green-500">✔</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* PRICE BOX */}
-                  <div className="mt-6">
-                    <div className="text-center py-4 border border-[#3A3A3A] bg-[#2F2F2F] rounded-none backdrop-blur-md shadow-md">
-                      <div className="font-irancell-bold text-5xl text-white tracking-wider">
-                        {pkg.price}
-                      </div>
-                      <div className="text-lg font-irancell-bold text-white/80 mt-1">
-                        میلیون
-                      </div>
+                {/* FEATURES */}
+                <div className="flex-1 space-y-2 mb-6">
+                  {pkg.features.map((f: string) => (
+                    <div
+                      key={f}
+                      className="font-irancell text-sm text-gray-700 flex gap-2"
+                    >
+                      ✓ {f}
                     </div>
-                  </div>
-
+                  ))}
                 </div>
+
+                {/* BUTTON */}
+                <button
+                  onClick={() => setOpen(true)}
+                  className="
+                    font-irancell
+                    w-full py-3 rounded-full
+                    bg-black text-white
+                    hover:scale-105 transition
+                  "
+                >
+                  استعلام قیمت
+                </button>
+
               </motion.div>
-            </motion.div>
-          ))}
+            ))}
+
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* MODAL */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+          >
+            <motion.div
+              className="bg-white/80 backdrop-blur-xl w-full max-w-md rounded-3xl p-8 shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+
+              <h3 className="font-casko text-3xl text-center mb-6">
+                Contact Us
+              </h3>
+
+              <p className="font-irancell text-center text-gray-600 mb-8">
+                برای استعلام قیمت با ما در تماس باشید
+              </p>
+
+              {/* CONTACT ROW (FIXED INLINE) */}
+              <div className="flex justify-between items-center gap-4 mb-8">
+
+                {/* Instagram */}
+                <a
+                  href="https://instagram.com/Cheek__Studio"
+                  target="_blank"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/303154/instagram-2016-logo.svg"
+                    className="w-8 h-8"
+                  />
+                  <span className="font-irancell text-xs">@Cheek__Studio</span>
+                </a>
+
+                {/* WhatsApp */}
+                <a
+                  href="https://wa.me/989021221311"
+                  target="_blank"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/158412/whatsapp.svg"
+                    className="w-8 h-8"
+                  />
+                  <span className="font-irancell text-xs">09021221311</span>
+                </a>
+
+                {/* Phone */}
+                <a
+                  href="tel:09021221311"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <img
+                    src="https://www.svgrepo.com/show/383027/mobile-call-phone.svg"
+                    className="w-8 h-8"
+                  />
+                  <span className="font-irancell text-xs">09021221311</span>
+                </a>
+
+              </div>
+
+              <button
+                onClick={() => setOpen(false)}
+                className="w-full py-3 rounded-full bg-black text-white font-irancell"
+              >
+                بستن
+              </button>
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
