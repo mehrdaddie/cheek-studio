@@ -9,24 +9,28 @@
 @font-face {
   font-family: "Casko";
   src: url("/fonts/Casko-Regular.otf") format("opentype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Irancell";
   src: url("/fonts/Irancell-Thin.woff") format("woff");
   font-weight: 100;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Irancell";
   src: url("/fonts/Irancell-Regular.woff") format("woff");
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Irancell";
   src: url("/fonts/Irancell-Bold.woff") format("woff");
   font-weight: 700;
+  font-display: swap;
 }
 
 /* =========================
@@ -34,20 +38,28 @@
 ========================= */
 
 :root {
-  --background: #f7f4ef;
-  --foreground: #111111;
+  --background: #0a0a0a;
+  --foreground: #f5f1ea;
+
+  --gold: #b89b68;
+  --blush: #d8b4b4;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #0a0a0a;
+  color: #f5f1ea;
   overflow-x: hidden;
   direction: rtl;
-  font-family: "Irancell", sans-serif;
+
+  /* مهم: fallback safe */
+  font-family: "Irancell", system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
 }
 
 /* =========================
@@ -99,16 +111,16 @@ h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f7f4ef;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 /* =========================
@@ -116,7 +128,7 @@ h6 {
 ========================= */
 
 ::selection {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* =========================
@@ -155,7 +167,6 @@ h6 {
     opacity: 0;
     transform: translateY(24px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -166,7 +177,6 @@ h6 {
   0% {
     transform: translateX(-120%);
   }
-
   100% {
     transform: translateX(120%);
   }
@@ -177,57 +187,9 @@ h6 {
 }
 
 /* =========================
-   PACKAGES
+   CLEAN RESET FIX (MOBILE SAFETY)
 ========================= */
 
-.packages-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 1.5rem;
-}
-
-.package-card {
-  background: white;
-  border-radius: 1rem;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.package-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-}
-
-.package-title {
-  font-family: "Irancell";
-  font-weight: 700;
-  text-align: center;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.package-description {
-  font-family: "Irancell";
-  font-weight: 100;
-  text-align: center;
-  font-size: 0.95rem;
-  color: #555;
-  padding: 0 0.5rem;
-}
-
-.package-price {
-  background: #333;
-  color: white;
-  font-family: "Casko";
-  text-align: center;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  font-size: 1.25rem;
-}
-
-@media (max-width: 768px) {
-  .package-card {
-    margin-bottom: 1.5rem;
-  }
+* {
+  -webkit-tap-highlight-color: transparent;
 }

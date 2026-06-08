@@ -15,24 +15,28 @@ const packages = [
       "تیم چند دوربینه",
       "آلبوم لوکس",
     ],
+    font: "font-casko",
   },
   {
     name: "CIP",
     featured: true,
     desc: "پکیج حرفه‌ای با پوشش کامل و مناسب برای اکثر مراسم‌ها",
     features: ["فیلمبرداری 4K", "هلی‌شات", "تدوین حرفه‌ای", "دوربین دوم"],
+    font: "font-casko",
   },
   {
     name: "فرمالیته شمال",
     featured: false,
     desc: "تجربه‌ای سینمایی در طبیعت شمال",
     features: ["لوکیشن اختصاصی", "هلی‌شات", "رنگ‌پردازی سینمایی"],
+    font: "font-irancell-bold",
   },
   {
     name: "فرمالیته شهری",
     featured: false,
     desc: "ثبت تصاویر مینیمال در فضای شهری",
     features: ["لوکیشن شهری", "عکاسی پرتره", "ادیت اختصاصی"],
+    font: "font-irancell-bold",
   },
 ];
 
@@ -40,78 +44,58 @@ export default function PackagesShowcase() {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div>
       {/* SECTION */}
       <section className="py-32 px-6 bg-[#F7F4EF]" dir="rtl">
         <div className="max-w-7xl mx-auto">
-
           {/* HEADER */}
-          <div className="text-center mb-16">
-            <h2 className="font-casko text-5xl mb-4">Packages</h2>
-            <p className="font-irancell text-gray-600 max-w-2xl mx-auto leading-loose">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl font-casko mb-4">Packages</h2>
+            <p className="font-irancell text-gray-600">
               قیمت‌ها به صورت اختصاصی و بر اساس نیاز پروژه شما تعیین می‌شود
             </p>
           </div>
 
-          {/* GRID (ALL CARDS SAME STRUCTURE) */}
+          {/* GRID */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            {packages.map((pkg, i) => (
+            {packages.map((pkg) => (
               <motion.div
                 key={pkg.name}
-                whileHover={{ y: -10, scale: 1.03 }}
+                whileHover={{ y: -12, scale: 1.04 }}
                 className={`
-                  relative rounded-3xl p-8 flex flex-col justify-between
-                  backdrop-blur-xl border shadow-lg
+                  relative rounded-[28px] p-8 flex flex-col justify-between
+                  backdrop-blur-xl border shadow-xl
+                  transition-all duration-300
                   ${pkg.featured
                     ? "bg-white/80 border-black/10 shadow-[0_30px_80px_rgba(0,0,0,0.12)]"
                     : "bg-white/60 border-black/5"
                   }
                 `}
               >
-
-                {/* TITLE */}
-                <h3
-                  className={`text-3xl mb-3 ${
-                    pkg.featured ? "font-casko" : "font-casko"
-                  }`}
-                >
+                <h3 className={`${pkg.font} text-3xl mb-3`}>
                   {pkg.name}
                 </h3>
 
-                {/* DESC */}
-                <p className="font-irancell text-gray-600 text-sm leading-loose mb-6">
+                <p className="font-irancell text-gray-600 text-sm mb-6 leading-loose">
                   {pkg.desc}
                 </p>
 
-                {/* FEATURES */}
-                <div className="flex-1 space-y-2 mb-6">
-                  {pkg.features.map((f: string) => (
-                    <div
-                      key={f}
-                      className="font-irancell text-sm text-gray-700 flex gap-2"
-                    >
+                <div className="flex-1 space-y-2">
+                  {pkg.features.map((f) => (
+                    <div key={f} className="font-irancell text-sm text-gray-700">
                       ✓ {f}
                     </div>
                   ))}
                 </div>
 
-                {/* BUTTON */}
                 <button
                   onClick={() => setOpen(true)}
-                  className="
-                    font-irancell
-                    w-full py-3 rounded-full
-                    bg-black text-white
-                    hover:scale-105 transition
-                  "
+                  className="mt-6 w-full py-3 rounded-full bg-black text-white font-irancell hover:scale-[1.03] transition"
                 >
                   استعلام قیمت
                 </button>
-
               </motion.div>
             ))}
-
           </div>
         </div>
       </section>
@@ -120,82 +104,73 @@ export default function PackagesShowcase() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md px-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setOpen(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-2xl"
           >
             <motion.div
-              className="bg-white/80 backdrop-blur-xl w-full max-w-md rounded-3xl p-8 shadow-2xl"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.85, y: 40, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.85, y: 40, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 180, damping: 18 }}
               onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md rounded-[32px] bg-white/10 border border-white/20 backdrop-blur-3xl p-10 text-white shadow-[0_40px_120px_rgba(0,0,0,0.6)]"
             >
+              {/* glow */}
+              <div className="absolute inset-0 rounded-[32px] bg-white/5 blur-2xl" />
 
-              <h3 className="font-casko text-3xl text-center mb-6">
-                Contact Us
-              </h3>
+              <div className="relative z-10">
+                <h3 className="font-irancell-bold text-2xl font-casko text-center mb-2">
+                  تماس با ما
+                </h3>
 
-              <p className="font-irancell text-center text-gray-600 mb-8">
-                برای استعلام قیمت با ما در تماس باشید
-              </p>
+                <p className="text-white/90 text-center mb-10 font-irancell text-sm">
+                  راه‌های ارتباطی سریع
+                </p>
 
-              {/* CONTACT ROW (FIXED INLINE) */}
-              <div className="flex justify-between items-center gap-4 mb-8">
+                <div className="flex justify-between items-center">
+                  <a
+                    href="https://instagram.com/Cheek__Studio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-2 hover:scale-110 transition"
+                  >
+                    <img src="/insta.svg" className="w-9 h-9" />
+                    <span className="text-xs font-irancell">اینستاگرام</span>
+                  </a>
 
-                {/* Instagram */}
-                <a
-                  href="https://instagram.com/Cheek__Studio"
-                  target="_blank"
-                  className="flex flex-col items-center gap-2"
+                  <a
+                    href="https://wa.me/989021221311"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-2 hover:scale-110 transition"
+                  >
+                    <img src="/whatsapp.svg" className="w-9 h-9" />
+                    <span className="text-xs font-irancell">واتساپ</span>
+                  </a>
+
+                  <a
+                    href="tel:09021221311"
+                    className="flex flex-col items-center gap-2 hover:scale-110 transition"
+                  >
+                    <img src="/call.svg" className="w-9 h-9 invert brightness-0" />
+                    <span className="text-xs font-irancell">تماس</span>
+                  </a>
+                </div>
+
+                <button
+                  onClick={() => setOpen(false)}
+                  className="mt-10 w-full py-3 rounded-full bg-white text-black font-irancell hover:scale-[1.02] transition"
                 >
-                  <img
-                    src="https://www.svgrepo.com/show/303154/instagram-2016-logo.svg"
-                    className="w-8 h-8"
-                  />
-                  <span className="font-irancell text-xs">@Cheek__Studio</span>
-                </a>
-
-                {/* WhatsApp */}
-                <a
-                  href="https://wa.me/989021221311"
-                  target="_blank"
-                  className="flex flex-col items-center gap-2"
-                >
-                  <img
-                    src="https://www.svgrepo.com/show/158412/whatsapp.svg"
-                    className="w-8 h-8"
-                  />
-                  <span className="font-irancell text-xs">09021221311</span>
-                </a>
-
-                {/* Phone */}
-                <a
-                  href="tel:09021221311"
-                  className="flex flex-col items-center gap-2"
-                >
-                  <img
-                    src="https://www.svgrepo.com/show/383027/mobile-call-phone.svg"
-                    className="w-8 h-8"
-                  />
-                  <span className="font-irancell text-xs">09021221311</span>
-                </a>
-
+                  بستن
+                </button>
               </div>
-
-              <button
-                onClick={() => setOpen(false)}
-                className="w-full py-3 rounded-full bg-black text-white font-irancell"
-              >
-                بستن
-              </button>
-
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
